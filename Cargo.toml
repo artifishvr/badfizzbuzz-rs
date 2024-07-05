@@ -1,0 +1,7 @@
+[package]
+name = "badfizzbuzz"
+version = "0.1.0"
+edition = "2021"
+default-run = "badfizzbuzz"
+
+[dependencies]
