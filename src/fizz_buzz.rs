@@ -100000,5 +100000,5 @@ pub fn fizzbuzz(num: i32) -> &'static str {
 	if num == 99998 { return "99998"; }
 	if num == 99999 { return "Fizz"; }
 	if num == 100000 { return "Buzz"; }
-	else { return ""; }
+	else { return "Not found."; }
 }
