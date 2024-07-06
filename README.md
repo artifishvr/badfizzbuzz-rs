@@ -1,19 +1,27 @@
 # badfizzbuzz
 
-## but in rust
+but in rust
 
 based on [Butterroach/badfizzbuzz](https://github.com/Butterroach/badfizzbuzz) but good! cause its rust! performance! yeah!!!!
 
 this is my first rust project.
 
-please just download from the releases it takes so long to build
-
 ## usage
 
-windows only
+Download a binary for your platform from the [releases page](https://github.com/artifishvr/badfizzbuzz-rs/releases)
+
+Example Usage (cli only)
 
 ```sh
-./badfizzbuzz
+./badfizzbuzz [integer]
 ```
 
-thats it.
+## building
+
+### requirements
+
+- rust
+
+```sh
+cargo build --release
+```
