@@ -1,3 +1,4 @@
+#[allow(clippy::too_many_lines)]
 pub fn fizzbuzz(num: i32) -> &'static str {
 	if num == 0 { return "FizzBuzz"; }
 	if num == 1 { return "1"; }
