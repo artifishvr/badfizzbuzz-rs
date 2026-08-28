@@ -5,13 +5,13 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     let Some(query) = args.get(1) else {
-        println!("Please provide a valid i32");
+        eprintln!("Please provide a valid i32");
 
         return;
     };
 
     let Ok(query) = query.parse::<i32>() else {
-        println!("Argument isn't a valid i32");
+        eprintln!("Argument isn't a valid i32");
 
         return;
     };
