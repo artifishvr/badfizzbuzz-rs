@@ -12,24 +12,33 @@ jobs:
     name: Build and Upload Release Assets
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         include:
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             target: x86_64-unknown-linux-gnu
             artifact_name: badfizzbuzz
             asset_name: badfizzbuzz_linux_x86_64
+          - os: ubuntu-22.04-arm
+            target: aarch64-unknown-linux-gnu 
+            artifact_name: badfizzbuzz
+            asset_name: badfizzbuzz_linux_aarch64
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             artifact_name: badfizzbuzz.exe
-            asset_name: badfizzbuzz.exe
-          - os: macos-latest
-            target: x86_64-apple-darwin
-            artifact_name: badfizzbuzz
-            asset_name: badfizzbuzz_macos_x86_64
-          - os: macos-latest
+            asset_name: badfizzbuzz_windows_x86_64.exe
+          - os: windows-11-arm 
+            target: aarch64-pc-windows-msvc 
+            artifact_name: badfizzbuzz.exe
+            asset_name: badfizzbuzz_windows_aarch64.exe
+          - os: macos-15
             target: aarch64-apple-darwin
             artifact_name: badfizzbuzz
             asset_name: badfizzbuzz_macos_arm64
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+            artifact_name: badfizzbuzz
+            asset_name: badfizzbuzz_macos_x86_64  
 
     steps:
     - name: Checkout code
@@ -43,12 +52,12 @@ jobs:
     - name: Build
       run: cargo build --release --target ${{ matrix.target }}
 
+    - name: Rename Release Asset
+      shell: bash
+      run: |
+        mv ./target/${{ matrix.target }}/release/${{ matrix.artifact_name }} ./target/${{ matrix.target }}/release/${{ matrix.asset_name }}
+
     - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+      uses: softprops/action-gh-release@v2
       with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./target/${{ matrix.target }}/release/${{ matrix.artifact_name }}
-        asset_name: ${{ matrix.asset_name }}
-        asset_content_type: application/octet-stream
+        files: ./target/${{ matrix.target }}/release/${{ matrix.asset_name }}
